@@ -58,30 +58,34 @@ the nonlocal statement can be used;
 if not declared nonlocal, those variables are read-only 
 (an attempt to write to such a variable will simply create a new 
 local variable in the innermost scope, leaving the identically 
-named outer variable unchanged).
+named outer variable unchanged). >>> so their value is bound only in
+that def scope
 
 SYNTAX nonlocal *identiier*
 e.g. nonlocal x
      nonlocal somename
 
 *** Basically you cant re-assign a value to a outer variable if 
-trying to bind it within a inner environemnt. With nonlocal *name*
-I access the first instance of that variable outside the inner function,
-i.e. looking for it as soon as it appears then i rebind it, like so:
+trying to bind it within a inner environemnt. With nonlocal *name* the
+program access the first instance of that variable outside the inner function,
+i.e. looking for it as soon as it appears then it rebinds it, like so: """
 
 def outer():
     x = 1
     def inner():
         nonlocal x
         x = 0
-    inner()
+    inner() # must call inner to rebind x
     return x
 
->> The above rebinds x to 0, assigning within the inner function
+""" The above rebinds x to 0, assigning from the inner function to the
+one outermost (it looks for x where is next appearing)"""
 
-Try
-print(outer()) <<< outer calls inner that rebinds outer x to 0
+""" Try
+print(outer()) <<< outer calls inner that rebinds outer x to 0 """
+# see above 
 
+""" Try
 print(x) <<< x is not defined in the global space. Is possible to
 assign x to global with inner by declaring *gloabl x*
 
