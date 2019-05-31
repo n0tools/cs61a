@@ -150,12 +150,13 @@ def take_turn(num_rolls, opponent_score, dice=six_sided):
     opponent_digits = [int(x) for x in str(opponent_score)]
     while num_rolls >= i:
         if num_rolls == 0:
-            freebacon = True
+			freebacon = True
+            print("Freebacon!")
             player_score = 1 + max(opponent_digits)
         else:
             player_score = player_score + roll_dice(num_rolls)
         i = i + 1
-    return (print(freebacon) and player_score) or player_score
+    return player_score
     
 
 turn1 = take_turn(0, 21)
@@ -193,6 +194,27 @@ break on each character:
 			player_score = roll_dice() + total 
 		i = i + 1
 		return player_score """
+		
+# alternative
+
+"""
+def take_turn(num_rolls, opponent_score, dice=six_sided):
+    assert type(num_rolls) == int, 'num_rolls must be an integer.'
+    assert num_rolls >= 0, 'Cannot roll a negative number of dice.'
+    assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
+    assert opponent_score < 100, 'The game should be over.'    
+    i, player_score, freebacon = 0, 0, False
+    opponent_digits = [int(x) for x in str(opponent_score)]
+    while num_rolls >= i:
+        if num_rolls == 0:
+            freebacon = True
+            print("Freebacon!")
+            player_score = 1 + max(opponent_digits)
+            return player_score
+        else:
+            player_score = player_score + roll_dice(num_rolls)
+        i = i + 1
+    return player_score"""
     
 
 def select_dice(score, opponent_score):
