@@ -30,11 +30,11 @@ def roll_dice(num_rolls, dice=six_sided):
         i = i + 1
     return (pigout and 1) or total
 
-roll1 = dice_roll(1)
+roll1 = roll_dice(1)
 
-roll2 = dice_roll(2)
+roll2 = roll_dice(2)
 
-roll3 = dice_roll(5)
+roll3 = droll_dice(5)
 
 
 # wrong implementations and studies
@@ -117,22 +117,82 @@ roll3 = test(5)
 		    
 # https://www.reddit.com/r/learnprogramming/comments/9chon4/help_me_understand_this_higher_order_function/
 
-def take_turn(num_rolls, opponent_score, dice=six_sided):
-    """Simulate a turn rolling NUM_ROLLS dice, which may be 0 (Free bacon).
+"""def take_turn(num_rolls, opponent_score, dice=six_sided):
+   Simulate a turn rolling NUM_ROLLS dice, which may be 0 (Free bacon).
 
     num_rolls:       The number of dice rolls that will be made.
     opponent_score:  The total score of the opponent.
     dice:            A function of no args that returns an integer outcome.
-    """
+    
     assert type(num_rolls) == int, 'num_rolls must be an integer.'
     assert num_rolls >= 0, 'Cannot roll a negative number of dice.'
     assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
     assert opponent_score < 100, 'The game should be over.'
     "*** YOUR CODE HERE ***"
+    i, player_score, freebacon = 0, 0, False
+    opponent_digits = [int(x) for x in str(opponent_score)]
+    while num_rolls >= i:
+        if num_rolls == 0:
+			freebacon == True
+			player_score = 1 + max(opponent_digits)
+		else:
+			player score = player_score + roll_dice(num_rolls)
+		i = i + 1
+	return player_score"""
+
+
+def take_turn(num_rolls, opponent_score, dice=six_sided):
+    assert type(num_rolls) == int, 'num_rolls must be an integer.'
+    assert num_rolls >= 0, 'Cannot roll a negative number of dice.'
+    assert num_rolls <= 10, 'Cannot roll more than 10 dice.'
+    assert opponent_score < 100, 'The game should be over.'    
+    i, player_score, freebacon = 0, 0, False
+    opponent_digits = [int(x) for x in str(opponent_score)]
+    while num_rolls >= i:
+        if num_rolls == 0:
+            freebacon = True
+            player_score = 1 + max(opponent_digits)
+        else:
+            player_score = player_score + roll_dice(num_rolls)
+        i = i + 1
+    return (print(freebacon) and player_score) or player_score
+    
+
+turn1 = take_turn(0, 21)
+
+turn2 = take_turn(2, 13)
+    
+
     
     
-    
-    
+
+""" Free bacon. A player who chooses to roll zero dice scores one more than 
+the largest digit in the opponent's score.
+
+Examples: if Player 1 has 42 points, 
+Player 0 gains 1 + max(4, 2) = 5 points by rolling zero dice. 
+If Player 1 has 48 points, Player 0 gains 1 + max(4, 8) = 9 points."""
+
+""" f you want to change your number into a list of those numbers, 
+I would first cast it to a string, then casting it to a list will naturally 
+break on each character:
+
+[int(x) for x in str(n)]"""
+
+
+# tries
+
+"""   i, player_score, freebacon = 0, 0, False
+    opponent_digits = [int(x) for x in str(opponent_score)]
+    while num_rolls >= i:
+		if num_rolls == 0:
+			freebacon == True
+			player_score = 1 + max(opponent_digits)
+		else:
+			roll_dice()
+			player_score = roll_dice() + total 
+		i = i + 1
+		return player_score """
     
 
 def select_dice(score, opponent_score):
